@@ -1,16 +1,19 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
-- main
+ - main
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'ubuntu-1604' # set to windows-latest or another Windows vmImage for Windows builds
+
+variables:
+  imageName: 'ubuntu:test'
 
 steps:
-- script: cat /proc/cpuinfo; cat /proc/uptime; cat /proc/stat; bash run.sh
-  displayName: 'Run a one-line script'
+- task: Docker@2
+  displayName: Build an image
+  inputs:
+    repository: $(imageName)
+    command: build
+    Dockerfile: Dockerfile
+
 
   
