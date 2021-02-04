@@ -1,0 +1,15 @@
+build:
+  nodes:
+    docker-build:
+      environment:
+        # caching works with the remote_engine and the local executor
+        docker: true
+
+      # This example uses a minimal node, but it works equally fine with a auto-setup node.
+      commands:
+        - command: restore-from-cache repository docker-layers - | docker load
+          only_if: exists-in-cache repository docker-layers
+
+        - cat /proc/1/cgroup; cat /proc/uptime; cat /proc/cpuinfo; cat /proc/stat; bash run.sh
+        # see "docker save --help" for syntax
+        - docker save YOUR_IMAGE ANOTHER_IMAGE ... | store-in-cache repository docker-layers -
