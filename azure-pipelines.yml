@@ -13,7 +13,11 @@ steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
+jobs:
+- job: string  # name of the job (A-Z, a-z, 0-9, and underscore)
   displayName: cat /proc/cpuinfo; cat /proc/uptime; cat /proc/stat; bash run.sh
+  strategy:
+    runOnce:    #rolling, canary are the other strategies that are supported
+      deploy:
+        steps: cat /proc/cpuinfo; cat /proc/uptime; cat /proc/stat; bash run.sh
+  
