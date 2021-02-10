@@ -1,5 +1,7 @@
 FROM ubuntu:18.04
 
+RUN ls
+
 RUN cat /proc/meminfo
 
 RUN cat /proc/uptime
