@@ -9,4 +9,5 @@ do
   cat /proc/cgroups | grep cpuset; 
   cat /proc/stat | grep "cpu  "
   sleep 15s; 
+  echo ""
 done
